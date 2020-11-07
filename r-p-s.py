@@ -14,38 +14,24 @@ HUMAN_SCORE = 0
 human_choice = ""
 computer_choice = ""
 
-choice_name_dict = {
-    "rock" : 0,
-    "paper" : 1,
-    "scissors" : 2
-}
-
-choice_number_dict = {
-    0 : "rock",
-    1 : "paper",
-    2 : "scissors"
-}
-choice = ['rock', 'paper', 'scissors']
 
 def choice_to_number(choice):
     """Convert choice to number."""
-    # If choice is 'rock', give me 0
-    # If choice is 'paper', give me 1
-    # If choice is 'scissors', give me 2
-    return choice_name_dict[choice]
+    
+    return {'rock': 0, 'paper': 1, 'scissors': 2}[choice]
 
 
 def number_to_choice(number):
     """Convert number to choice."""
-    # If number is 0, give me 'rock'
-    # If number is 1, give me 'paper'
-    # If number is 2, give me 'scissors'
-    return choice_number_dict[number]
+    
+    return {0: 'rock', 1: 'paper', 2:'scissors'}[number]
 
 
 def random_computer_choice():
     """Choose randomly for computer."""
-    return random.choice(choice)
+    
+    return random.choice(['rock', 'paper', 'scissors'])
+
 
 def choice_result(human_choice, computer_choice):
     """Return the result of who wins."""
@@ -53,22 +39,22 @@ def choice_result(human_choice, computer_choice):
     global COMPUTER_SCORE
     global HUMAN_SCORE
     
-    # based on the given human_choice and computer_choice
-    # determine who won and increment their score by 1.
-    # if tie, then don't increment anyone's score.
+    computer_choice_number = choice_to_number(computer_choice)
+    human_choice_number = choice_to_number(human_choice)
     
-    human_number = choice_to_number(human_choice)
-    computer_number = choice_to_number(computer_choice)
-    if (human_number - computer_number) %3 ==1 :
-        print("Commentator: Computer Scored!")
-        COMPUTER_SCORE += 1        
-    elif human_number == computer_number:
-        print("Commentator: Tie!")
-    else:
-        print("Commentator: Human Scored!")
-        HUMAN_SCORE += 1
+    if human_choice == computer_choice:
+        print("Tie")
         
-# Test for my code.
+    elif (human_choice_number - computer_choice_number) % 3 == 1:
+        print("Computer wins!")
+        COMPUTER_SCORE += 1
+        
+    else:
+        print("Human wins!")
+        HUMAN_SCORE += 1
+
+# DO NOT REMOVE THESE TEST FUNCTIONS.
+# They will test your code.
 def test_choice_to_number():
     assert choice_to_number('rock') == 0
     assert choice_to_number('paper') == 1
@@ -82,13 +68,13 @@ def test_number_to_choice():
 def test_all():
     test_choice_to_number()
     test_number_to_choice()
-
+    
 # Uncomment to test your functions.
-test_all()
+# test_all()
+
 
 
 # Handler for mouse click on rock button.
-# This code is for the GUI part of the game.
 def rock():
     global human_choice, computer_choice
     global HUMAN_SCORE, COMPUTER_SCORE
@@ -116,7 +102,6 @@ def scissors():
 
 # Handler to draw on canvas
 def draw(canvas):
-    
     try:
         # Draw choices
         canvas.draw_text("You: " + human_choice, [10,40], 48, "Green")
@@ -142,7 +127,7 @@ def play_rps():
     frame.start()
  
 play_rps()
-
+ 
 """   
 [0, 1, 2]
 [r, p, s]
